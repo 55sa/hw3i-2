@@ -63,11 +63,12 @@ fun FlashcardsQuizApp() {
     var userInput by remember { mutableStateOf("") }
     var quizComplete by remember { mutableStateOf(false) }
     val coroutineScope = rememberCoroutineScope()
-    val snackbarHostState = remember { SnackbarHostState() }
+    val snackbarState = remember { SnackbarHostState() }
 
     val currentQuestion = questions[currentQuestionIndex].first
     val correctAnswer = questions[currentQuestionIndex].second
-
+Scaffold(snackbarHost = {SnackbarHost(hostState = snackbarState)}) {
+    padding->
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -100,7 +101,7 @@ fun FlashcardsQuizApp() {
                     submitAnswer(
                         userInput,
                         correctAnswer,
-                        snackbarHostState,
+                        snackbarState,
                         currentQuestionIndex,
                         questions.size,
                         { currentQuestionIndex++ },
@@ -117,7 +118,7 @@ fun FlashcardsQuizApp() {
                     submitAnswer(
                         userInput,
                         correctAnswer,
-                        snackbarHostState,
+                        snackbarState,
                         currentQuestionIndex,
                         questions.size,
                         { currentQuestionIndex++ },
@@ -145,8 +146,10 @@ fun FlashcardsQuizApp() {
         }
 
         // Snackbar for feedback
-        SnackbarHost(hostState = snackbarHostState)
+//        SnackbarHost(hostState = snackbarState)
     }
+}
+
 }
 
 fun submitAnswer(
